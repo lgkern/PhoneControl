@@ -18,6 +18,7 @@ public class Configuration extends Activity implements SensorEventListener {
 	
 	private long lastUpdate = 0;
 	private long lastUpdate2 = 0;
+	private long lastUpdate3 = 0;
 	private float last_x, last_y, last_z;
 	private static final int SHAKE_THRESHOLD = 600;
 	
@@ -102,6 +103,32 @@ public class Configuration extends Activity implements SensorEventListener {
              }
         	
         }
+        if (mySensor.getType() == Sensor.TYPE_GRAVITY) {
+            float x = sensorEvent.values[0];
+            float y = sensorEvent.values[1];
+            float z = sensorEvent.values[2];
+            
+            TextView xtext = (TextView)findViewById(R.id.textView8);
+            TextView ytext = (TextView)findViewById(R.id.textView9);
+            TextView ztext = (TextView)findViewById(R.id.textView10);
+     
+            long curTime = System.currentTimeMillis();
+     
+            if ((curTime - lastUpdate3) > 500) {
+                long diffTime = (curTime - lastUpdate3);
+                lastUpdate3 = curTime;
+     
+                float speed = Math.abs(x + y + z - last_x - last_y - last_z)/ diffTime * 10000;
+     
+                if (speed > SHAKE_THRESHOLD) {
+     
+                }
+                
+                xtext.setText("Gr x:" + Float.toString(x));
+                ytext.setText("Gr y:" + Float.toString(y));
+                ztext.setText("Gr z:" + Float.toString(z));
+            }
+        }
     }
 		
      
@@ -118,6 +145,8 @@ public class Configuration extends Activity implements SensorEventListener {
     protected void onResume() {
         super.onResume();
         senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        senSensorManager.registerListener(this, senGyroscope , SensorManager.SENSOR_DELAY_NORMAL);
+        senSensorManager.registerListener(this, senGravity , SensorManager.SENSOR_DELAY_NORMAL);
     }
 	
 } 
