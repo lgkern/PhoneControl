@@ -1,8 +1,12 @@
 package com.phonecontrol;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 import android.hardware.Sensor;
@@ -16,14 +20,19 @@ public class Configuration extends Activity implements SensorEventListener {
 	private Sensor senGyroscope;
 	private Sensor senGravity;
 	
+	private long firstUpdate = 0;
 	private long lastUpdate = 0;
 	private long lastUpdate2 = 0;
 	private long lastUpdate3 = 0;
-	private float last_x, last_y, last_z;
+	private long lastLog = 0;
+	private float ac_x, ac_y, ac_z;
+	private float gy_x, gy_y, gy_z;
+	private float gr_x, gr_y, gr_z;
 	private static final int SHAKE_THRESHOLD = 600;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    	lastLog = System.currentTimeMillis();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
         
@@ -60,16 +69,18 @@ public class Configuration extends Activity implements SensorEventListener {
      
             long curTime = System.currentTimeMillis();
      
-            if ((curTime - lastUpdate) > 500) {
+            if ((curTime - lastUpdate) > 100) {
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;
      
-                float speed = Math.abs(x + y + z - last_x - last_y - last_z)/ diffTime * 10000;
+                float speed = Math.abs(x + y + z - ac_x - ac_y - ac_z)/ diffTime * 10000;
      
                 if (speed > SHAKE_THRESHOLD) {
      
                 }
-                
+                ac_x = x;
+                ac_y = y;
+                ac_z = z;
                 xtext.setText("Ac x:" + Float.toString(x));
                 ytext.setText("Ac y:" + Float.toString(y));
                 ztext.setText("Ac z:" + Float.toString(z));
@@ -87,16 +98,18 @@ public class Configuration extends Activity implements SensorEventListener {
       
              long curTime2 = System.currentTimeMillis();
       
-             if ((curTime2 - lastUpdate2) > 500) {
+             if ((curTime2 - lastUpdate2) > 100) {
                  long diffTime = (curTime2 - lastUpdate2);
                  lastUpdate2 = curTime2;
       
-                 float speed = Math.abs(x + y + z - last_x - last_y - last_z)/ diffTime * 10000;
+                 float speed = Math.abs(x + y + z - gy_x - gy_y - gy_z)/ diffTime * 10000;
       
                  if (speed > SHAKE_THRESHOLD) {
       
                  }
-                 
+                 gy_x = x;
+                 gy_y = y;
+                 gy_z = z;
                  xtext.setText("Gy x:" + Float.toString(x));
                  ytext.setText("Gy y:" + Float.toString(y));
                  ztext.setText("Gy z:" + Float.toString(z));
@@ -114,21 +127,37 @@ public class Configuration extends Activity implements SensorEventListener {
      
             long curTime = System.currentTimeMillis();
      
-            if ((curTime - lastUpdate3) > 500) {
+            if ((curTime - lastUpdate3) > 100) {
                 long diffTime = (curTime - lastUpdate3);
                 lastUpdate3 = curTime;
      
-                float speed = Math.abs(x + y + z - last_x - last_y - last_z)/ diffTime * 10000;
+                float speed = Math.abs(x + y + z - gr_x - gr_y - gr_z)/ diffTime * 10000;
      
                 if (speed > SHAKE_THRESHOLD) {
      
                 }
+                
+                gr_x = x;
+                gr_y = y;
+                gr_z = z;
                 
                 xtext.setText("Gr x:" + Float.toString(x));
                 ytext.setText("Gr y:" + Float.toString(y));
                 ztext.setText("Gr z:" + Float.toString(z));
             }
         }
+        
+        String data = "";
+        long currTime = System.currentTimeMillis();
+        if((currTime - lastLog) > 100)
+	    {
+        	lastLog = currTime;
+	        data += "[" + Long.toString(currTime) + "] ";
+	        data += "ac: " + Float.toString(ac_x) + "\t" + Float.toString(ac_y) + "\t" + Float.toString(ac_z) + "\t";
+	        data += "gy: " + Float.toString(gy_x) + "\t" + Float.toString(gy_y) + "\t" + Float.toString(gr_z) + "\t";
+	        data += "gr: " + Float.toString(gr_x) + "\t" + Float.toString(gr_y) + "\t" + Float.toString(gy_z) + "\n";
+	        writeToFile(data);
+	    }
     }
 		
      
@@ -147,6 +176,17 @@ public class Configuration extends Activity implements SensorEventListener {
         senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         senSensorManager.registerListener(this, senGyroscope , SensorManager.SENSOR_DELAY_NORMAL);
         senSensorManager.registerListener(this, senGravity , SensorManager.SENSOR_DELAY_NORMAL);
+    }
+    
+    private void writeToFile(String data) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("config.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        } 
     }
 	
 } 
