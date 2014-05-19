@@ -8,6 +8,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -20,7 +23,9 @@ public class Configuration extends Activity implements SensorEventListener {
 	private Sensor senGyroscope;
 	private Sensor senGravity;
 	
-	private long firstUpdate = 0;
+	private boolean logging = false;
+		
+	private long refreshRate = 100;
 	private long lastUpdate = 0;
 	private long lastUpdate2 = 0;
 	private long lastUpdate3 = 0;
@@ -44,6 +49,22 @@ public class Configuration extends Activity implements SensorEventListener {
         senSensorManager.registerListener(this, senGyroscope , SensorManager.SENSOR_DELAY_NORMAL);
         senSensorManager.registerListener(this, senGravity , SensorManager.SENSOR_DELAY_NORMAL);
         
+        Button btnStart = (Button) findViewById(R.id.button1);
+        Button btnStop = (Button) findViewById(R.id.button2);
+        
+        btnStart.setOnClickListener(new OnClickListener(){
+        	@Override
+        	public void onClick(View arg0){
+        		logging = true;
+        	}
+        });
+        
+        btnStop.setOnClickListener(new OnClickListener(){
+        	@Override
+        	public void onClick(View arg0){
+        		logging = false;
+        	}
+        });
     }
 
 
@@ -69,7 +90,7 @@ public class Configuration extends Activity implements SensorEventListener {
      
             long curTime = System.currentTimeMillis();
      
-            if ((curTime - lastUpdate) > 100) {
+            if ((curTime - lastUpdate) > refreshRate) {
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;
      
@@ -98,7 +119,7 @@ public class Configuration extends Activity implements SensorEventListener {
       
              long curTime2 = System.currentTimeMillis();
       
-             if ((curTime2 - lastUpdate2) > 100) {
+             if ((curTime2 - lastUpdate2) > refreshRate) {
                  long diffTime = (curTime2 - lastUpdate2);
                  lastUpdate2 = curTime2;
       
@@ -127,7 +148,7 @@ public class Configuration extends Activity implements SensorEventListener {
      
             long curTime = System.currentTimeMillis();
      
-            if ((curTime - lastUpdate3) > 100) {
+            if ((curTime - lastUpdate3) > refreshRate) {
                 long diffTime = (curTime - lastUpdate3);
                 lastUpdate3 = curTime;
      
@@ -149,7 +170,7 @@ public class Configuration extends Activity implements SensorEventListener {
         
         String data = "";
         long currTime = System.currentTimeMillis();
-        if((currTime - lastLog) > 100)
+        if((currTime - lastLog) > 100 && logging)
 	    {
         	lastLog = currTime;
 	        data += "[" + Long.toString(currTime) + "] ";
@@ -180,12 +201,16 @@ public class Configuration extends Activity implements SensorEventListener {
     
     private void writeToFile(String data) {
         try {
+    		TextView logText = (TextView)findViewById(R.id.textView2);
+    		logText.setText("Writing to file");
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("config.txt", Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
         }
         catch (IOException e) {
+        	TextView logText = (TextView)findViewById(R.id.textView2);
             Log.e("Exception", "File write failed: " + e.toString());
+            logText.setText("File write failed:" + e.toString());
         } 
     }
 	
