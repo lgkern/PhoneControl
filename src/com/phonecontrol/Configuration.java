@@ -2,10 +2,13 @@ package com.phonecontrol;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -48,8 +51,13 @@ public class Configuration extends Activity implements SensorEventListener {
 	
 	private static final int SHAKE_THRESHOLD = 600;
 	
+	private List<Movement> movements;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    //	Intent t = new Intent(Configuration.this,BluetoothConfiguration.class);
+    //	startActivity(t);
+    	
     	lastLog = System.currentTimeMillis();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuration);
@@ -78,6 +86,11 @@ public class Configuration extends Activity implements SensorEventListener {
         		logging = false;
         	}
         });
+        
+        movements = new ArrayList<Movement>();
+        
+        movements.add(new Movement(new float[]{78.0f,103.0f,64.0f},new float[]{11.0f,11.0f,11.0f},new float[]{0.0f, 9.7f, 0.0f},new float[]{0.0f, 9.7f, 0.0f}));
+        movements.add(new Movement(new float[]{505.0f,350.0f,3062.0f},new float[]{34.0f,1232.0f,98.0f},new float[]{0.0f, 0.0f, -9.8f},new float[]{9.8f, 0.0f, 0.0f}));
     }
     
     @Override
@@ -254,44 +267,44 @@ public class Configuration extends Activity implements SensorEventListener {
     
     
     private void updateDistance(int storeVariable, float x, float y, float z, long timeFrame){
-    	float X = (float) Math.sqrt(x*x);
-    	float Y = (float) Math.sqrt(y*y);
-    	float Z = (float) Math.sqrt(z*z);
+    	float X = (float) Math.abs(x);
+    	float Y = (float) Math.abs(y);
+    	float Z = (float) Math.abs(z);
     	float tolerance = 0.0f;    	
     	float[] positions = new float[3];    
-    	float s;
-    	float u;
+  //  	float s;
+  //  	float u;
     	float[] velocity = new float[3];
     	float a = 0.0f;
     	for(int i = 0; i < 3; i++){
     		if(i == 0) { 
-    			if (X > (float)tolerance*Math.sqrt((storeVariable-1)*(storeVariable-1))) 
+    			if (X > (float)tolerance*Math.abs((storeVariable-1))) 
     				a = exponentialSmoothing(storeVariable, i, X); 
     			else
     				a = 0.0f;
     		}
     		if(i == 1) {
-    			if (Y > (float)tolerance*Math.sqrt((storeVariable-1)*(storeVariable-1))) 
+    			if (Y > (float)tolerance*Math.abs((storeVariable-1))) 
     				a = exponentialSmoothing(storeVariable, i, Y); 
     			else 
     				a = 0.0f;
     		}
     		if(i == 2) {
-    			if (Z > (float)tolerance*Math.sqrt((storeVariable-1)*(storeVariable-1))) 
+    			if (Z > (float)tolerance*Math.abs((storeVariable-1))) 
     				a = exponentialSmoothing(storeVariable, i, Z);
     			else 
     				a = 0.0f;
     			}
-        	if(storeVariable == 0){ //accelerometer
-        		u = ac_LastVelocity[i];
-        		s = acAccelerometer[i];
-        	}
-        	else{
-        		u = gy_LastVelocity[i];
-        		s = acGyroscope[i];
-        	}
-        	velocity[i] = u + (a*timeFrame);
-        	positions[i] = a*timeFrame;//s + (velocity[i] * timeFrame);        
+       // 	if(storeVariable == 0){ //accelerometer
+        	//	u = ac_LastVelocity[i];
+        	//	s = acAccelerometer[i];
+       // 	}
+        	//else{
+        	//	u = gy_LastVelocity[i];
+        	//	s = acGyroscope[i];
+        //	}
+        //	velocity[i] = u + (a*timeFrame);
+        	positions[i] = a*(float)timeFrame;//s + (velocity[i] * timeFrame);        
     	}
     	if(storeVariable == 0){
     		for(int i = 0; i < 3; i++){
@@ -306,8 +319,8 @@ public class Configuration extends Activity implements SensorEventListener {
     		}
     	}
     	
-        TextView results = (TextView)findViewById(R.id.TextView01);
-        results.setText(Float.toString(acAccelerometer[0]));
+       // TextView results = (TextView)findViewById(R.id.TextView01);
+       // results.setText(Float.toString(acAccelerometer[0]));
     }
 		
      
