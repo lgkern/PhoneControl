@@ -64,9 +64,9 @@ public class Configuration extends Activity implements SensorEventListener {
         //senSensorManager.registerListener(this, senGravity , SensorManager.SENSOR_DELAY_NORMAL);
         
         Button btnStatus = (Button) findViewById(R.id.button1);
-        Button btnControls = (Button) findViewById(R.id.Button01);
-        Button btnAbout = (Button) findViewById(R.id.Button02);
-        Button btnHelp = (Button) findViewById(R.id.Button03);
+        Button btnControls = (Button) findViewById(R.id.Button009);
+        Button btnAbout = (Button) findViewById(R.id.Button007);
+        Button btnHelp = (Button) findViewById(R.id.Button006);
         
         final Switch switch1 = (Switch) findViewById(R.id.switch1);
         
@@ -125,7 +125,7 @@ public class Configuration extends Activity implements SensorEventListener {
 		    fos.write("Such Movements;0-8;5\n".getBytes());
 		    fos.write("Very Test;1-2-4-0;3\n".getBytes());
 		    fos.write("Much lines;2;3\n".getBytes());
-		    fos.write("wow;1-4-8-7-5;3\n".getBytes());
+		    fos.write("wow;0-1-2-3-4-5-6-7-8;3\n".getBytes());
 		    fos.close();		    
 		}
 		catch (Exception e) 
@@ -154,15 +154,15 @@ public class Configuration extends Activity implements SensorEventListener {
 		try 
 		{
 		    FileOutputStream fos = openFileOutput("ElementDB", Context.MODE_PRIVATE);
-		    fos.write("Hue\n".getBytes());
-		    fos.write("HueHue\n".getBytes());
-		    fos.write("HueHueHue\n".getBytes());
-		    fos.write("HueHueHueHue\n".getBytes());
-		    fos.write("HueHueHueHueHue\n".getBytes());
-		    fos.write("HueHueHueHueHueHue\n".getBytes());
-		    fos.write("HueHueHueHueHueHueHue\n".getBytes());
-		    fos.write("HueHueHueHueHueHueHueHue\n".getBytes());
-		    fos.write("HueHueHueHueHueHueHueHueHue\n".getBytes());		    
+		    fos.write("Hue0\n".getBytes());
+		    fos.write("Hue1\n".getBytes());
+		    fos.write("Hue2\n".getBytes());
+		    fos.write("Hue3\n".getBytes());
+		    fos.write("Hue4\n".getBytes());
+		    fos.write("Hue5\n".getBytes());
+		    fos.write("Hue6\n".getBytes());
+		    fos.write("Hue7\n".getBytes());
+		    fos.write("Hue8\n".getBytes());		    
 		    
 		    fos.close();		    
 		}

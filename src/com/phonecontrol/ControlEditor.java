@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ControlEditor extends Activity {
@@ -33,24 +32,23 @@ public class ControlEditor extends Activity {
 	final private String movementDB = "MovementDB";
 	final private String elementDB = "ElementDB";
 	
-	private int id;
+	Intent intent;
+	
+	private int Id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Intent intent = getIntent();
-		id = intent.getIntExtra("id", 0);
+		intent = getIntent();
+		Id = intent.getIntExtra("id", 0);
 		setContentView(R.layout.edit);
-	      Toast.makeText(getApplicationContext(),""+id,
-	    		  Toast.LENGTH_SHORT).show();
 	      
 	    controls = new ArrayList<Control>();
 		movementNames = new ArrayList<String>();
 		elementNames = new ArrayList<String>();
 		
 		myListView = (ListView)findViewById(R.id.listView1);		 
-			
-	      // create the arrayAdapter that contains the BTDevices, and set it to the ListView
+
 		ControlArrayAdapter = new ArrayAdapter<String>(this, R.layout.listviewlayout);
 	    myListView.setAdapter(ControlArrayAdapter);
 	      
@@ -58,7 +56,7 @@ public class ControlEditor extends Activity {
 	    loadDBs();     	
 	    
 	    TextView MainName = (TextView)findViewById(R.id.textView1);
-	    MainName.setText(controls.get(id).name());
+	    MainName.setText(controls.get(Id).name());
 	    
 	    populateList();    
 
@@ -67,30 +65,44 @@ public class ControlEditor extends Activity {
 	    	  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	    		  if(position == 1) // Element
 	    		  {
-	    			  Intent t = new Intent(ControlEditor.this,ElementPicker.class);	    			  
-		    		  t.putExtra("Elements",GenerateElement());
-		        	 startActivity(t);  
+	    			 Intent t = new Intent(ControlEditor.this,ElementPicker.class);	    			  
+		    		 t.putExtra("Elements",GenerateElement());
+		    		 t.putExtra("id", Id);
+		        	 startActivityForResult(t,1);  
 	    		  }
 	    		  else if(position == 0) //Movement
-	    		  {
-	    			  
+	    		  {//TODO change the intent
+	    			  Intent t = new Intent(ControlEditor.this,ElementPicker.class);	    			  
+			    	  t.putExtra("Movement",GenerateMovement());
+			    	  startActivity(t);	    			  
 	    		  }
 	    		  
 	    	  }
-
-
 	    	}); 
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		startActivity(intent);
+		this.finish();
 	}
 	
 	private int GenerateElement() 
 	{
 		int result = 0;
-		for(int element : controls.get(id).elements())
-		{
-			result += Math.pow(10, element);
-		}
+		if(controls.get(Id).elements() != null)			
+			for(int element : controls.get(Id).elements())
+			{
+				result += Math.pow(10, element);
+			}
 		return result;
 	}
+	
+	private String GenerateMovement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	private void loadDBs() {
 		loadControlDB();
@@ -107,37 +119,25 @@ public class ControlEditor extends Activity {
 	
 	private String GenerateMoveString() {
 		String result ="Trigger Movement\n";
-		result+= movementNames.get(controls.get(id).Move());
+		result+= movementNames.get(controls.get(Id).Move());
 		
 		return result;
 	}
 
 	private String GenerateElementString() {
 		String result ="Elements Affected\n";
-		for(int element : controls.get(id).elements())
+		if(controls.get(Id).elements() != null)
 		{
-			result+= elementNames.get(element);
-			result+= "\n";
+			for(int element : controls.get(Id).elements())
+			{
+				result+= elementNames.get(element);
+				result+= "\n";
+			}
 		}
-		//result+= movementNames.get(controls.get(id).Move());
-		
+		else
+			result+="\n";
 		return result;
-	}
-
-	/*private String GenerateAdapterString(int i) {
-		String result = new String();
-		Control current = controls.get(i);
-		result = current.name() + "\n";
-		result+= "Elements: ";
-		for(int index : current.elements())
-		{
-			result+=elementNames.get(index) + " ";
-		}
-		result+="\n";
-		result+= "Movement: ";
-		result+=movementNames.get(current.Move());
-		return result;
-	}*/
+	}	
 
 	private void loadMovementDB() {
 		
@@ -227,10 +227,15 @@ public class ControlEditor extends Activity {
 		String[] temp;
 		int[] tempElements;
 		
+		if (string.length() == 0)
+			return null;
+		
 		temp = string.split(innerSeparator);
 		tempElements = new int[temp.length];
 		for(int i = 0; i < temp.length; i++)
 		{
+			if(temp[i] == "")
+				continue;
 			tempElements[i] = Integer.parseInt(temp[i]);		
 		}
 		

@@ -31,10 +31,13 @@ public class ControlScreen extends Activity {
 	final private String controlDB = "ControlDB";
 	final private String movementDB = "MovementDB";
 	final private String elementDB = "ElementDB";
+	
+	Intent intent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		intent = getIntent();
 		setContentView(R.layout.control);
 		controls = new ArrayList<Control>();
 		movementNames = new ArrayList<String>();
@@ -53,11 +56,17 @@ public class ControlScreen extends Activity {
 	     myListView.setOnItemClickListener(new OnItemClickListener() {
 	    	  @Override
 	    	  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	    		  Intent t = new Intent(ControlScreen.this,ElementPicker.class);
+	    		  Intent t = new Intent(ControlScreen.this,ControlEditor.class);
 	    		  t.putExtra("id",position);
-	        	 startActivity(t);
+	        	 startActivityForResult(t,1);
 	    	  }
 	    	}); 
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		startActivity(intent);
+		this.finish();
 	}
 
 
@@ -75,10 +84,12 @@ public class ControlScreen extends Activity {
 		Control current = controls.get(i);
 		result = current.name() + "\n";
 		result+= "Elements: ";
-		for(int index : current.elements())
-		{
-			result+=elementNames.get(index) + " ";
-		}
+		if(current.elements() != null)
+			for(int index : current.elements())
+			{
+				result+=elementNames.get(index) + " ";
+			}
+		
 		result+="\n";
 		result+= "Movement: ";
 		result+=movementNames.get(current.Move());
@@ -183,10 +194,15 @@ public class ControlScreen extends Activity {
 		String[] temp;
 		int[] tempElements;
 		
+		if (string.length() == 0)
+			return null;
+		
 		temp = string.split(innerSeparator);
 		tempElements = new int[temp.length];
 		for(int i = 0; i < temp.length; i++)
 		{
+			if(temp[i] == "")
+				continue;
 			tempElements[i] = Integer.parseInt(temp[i]);		
 		}
 		

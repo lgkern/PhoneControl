@@ -12,134 +12,142 @@
     tools:context=".ElementPicker" >
 
     <Button
-        android:id="@+id/Button02"
+        android:id="@+id/Button007"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/Button05"
-        android:layout_alignBottom="@+id/Button05"
+        android:layout_alignBaseline="@+id/Button008"
+        android:layout_alignBottom="@+id/Button008"
         android:layout_marginRight="23dp"
-        android:layout_toLeftOf="@+id/Button05"
-        android:background="@drawable/branco_aceso"
+        android:layout_toLeftOf="@+id/Button008"
+        android:background="@drawable/g1"
         android:text="Button"
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/Button05"
+        android:id="@+id/Button008"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="155dp"
-        android:background="@drawable/azul_aceso"
+        android:background="@drawable/h1"
         android:text="Button"
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/Button04"
+        android:id="@+id/Button005"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/Button03"
-        android:layout_alignBottom="@+id/Button03"
-        android:layout_alignLeft="@+id/Button05"
-        android:background="@drawable/verde_aceso"
+        android:layout_alignBaseline="@+id/Button006"
+        android:layout_alignBottom="@+id/Button006"
+        android:layout_alignLeft="@+id/Button008"
+        android:background="@drawable/e1"
         android:text="Button"
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/Button06"
+        android:id="@+id/Button004"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/Button04"
-        android:layout_alignBottom="@+id/Button04"
-        android:layout_alignLeft="@+id/Button02"
-        android:background="@drawable/vermelho_aceso"
+        android:layout_alignBaseline="@+id/Button005"
+        android:layout_alignBottom="@+id/Button005"
+        android:layout_alignLeft="@+id/Button007"
+        android:background="@drawable/d1"
         android:text="Button"
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/Button08"
+        android:id="@+id/Button002"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/Button07"
-        android:layout_alignBottom="@+id/Button07"
-        android:layout_alignLeft="@+id/Button04"
-        android:background="@drawable/laranja_aceso"
+        android:layout_alignBaseline="@+id/Button003"
+        android:layout_alignBottom="@+id/Button003"
+        android:layout_alignLeft="@+id/Button005"
+        android:background="@drawable/b1"
         android:text="Button"
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/Button09"
+        android:id="@+id/Button001"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/Button08"
-        android:layout_alignBottom="@+id/Button08"
-        android:layout_alignLeft="@+id/Button06"
-        android:background="@drawable/amarelo_aceso"
+        android:layout_alignBaseline="@+id/Button002"
+        android:layout_alignBottom="@+id/Button002"
+        android:layout_alignLeft="@+id/Button004"
+        android:background="@drawable/a1"
         android:text="Button"
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/Button009"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Button01"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="54dp"
-        android:background="@drawable/back_button" />
+        android:layout_alignBaseline="@+id/Button008"
+        android:layout_alignBottom="@+id/Button008"
+        android:layout_marginLeft="28dp"
+        android:layout_toRightOf="@+id/Button008"
+        android:background="@drawable/i1"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Button003"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Button006"
+        android:layout_alignLeft="@+id/Button009"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/c1"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Button006"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Button009"
+        android:layout_marginBottom="21dp"
+        android:layout_toRightOf="@+id/textView1"
+        android:background="@drawable/f1"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Button08"
+        android:layout_above="@+id/Button002"
         android:layout_marginBottom="35dp"
-        android:layout_toLeftOf="@+id/Button07"
+        android:layout_toLeftOf="@+id/Button003"
         android:text="Elements"
         android:textColor="#FFFFFF"
         android:textSize="27sp"
         tools:ignore="HardcodedText" />
 
     <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Button" />
+
+    <Button
         android:id="@+id/Button01"
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/Button05"
-        android:layout_alignBottom="@+id/Button05"
-        android:layout_marginLeft="28dp"
-        android:layout_toRightOf="@+id/Button05"
-        android:background="@drawable/marrom_aceso"
-        android:text="Button"
-        tools:ignore="HardcodedText" />
-
-    <Button
-        android:id="@+id/Button07"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/Button03"
-        android:layout_alignLeft="@+id/Button01"
-        android:layout_marginBottom="14dp"
-        android:background="@drawable/roxo_aceso"
-        android:text="Button"
-        tools:ignore="HardcodedText" />
-
-    <Button
-        android:id="@+id/Button03"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/Button01"
-        android:layout_marginBottom="21dp"
-        android:layout_toRightOf="@+id/textView1"
-        android:background="@drawable/cordepijama_aceso"
-        android:text="Button"
-        tools:ignore="HardcodedText" />
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_toLeftOf="@+id/textView1"
+        android:text="Button" />
 
 </RelativeLayout>

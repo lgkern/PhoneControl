@@ -14,12 +14,12 @@
 
 
     <Button
-        android:id="@+id/Button03"
+        android:id="@+id/Button006"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/Button02"
+        android:layout_alignRight="@+id/Button007"
         android:gravity="left|center_vertical"
-        android:layout_below="@+id/Button02"
+        android:layout_below="@+id/Button007"
         android:layout_marginTop="30dp"
         android:background="@drawable/uooooou"
         android:text="HELP           "
@@ -28,12 +28,12 @@
         android:typeface="sans" />
 
     <Button
-        android:id="@+id/Button02"
+        android:id="@+id/Button007"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Button01"
+        android:layout_alignLeft="@+id/Button009"
         android:gravity="left|center_vertical"
-        android:layout_below="@+id/Button01"
+        android:layout_below="@+id/Button009"
         android:layout_marginTop="27dp"
         android:background="@drawable/uooooou"
         android:text="ABOUT        "
@@ -42,7 +42,7 @@
         android:typeface="sans" />
 
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/Button009"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button1"
@@ -83,7 +83,7 @@
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Button01"
+        android:layout_above="@+id/Button009"
         android:layout_toRightOf="@+id/imageView2" />
 
 </RelativeLayout>
