@@ -101,7 +101,9 @@ public final class R {
     }
     public static final class menu {
         public static final int configuration=0x7f070000;
-        public static final int control_screen=0x7f070001;
+        public static final int control_editor=0x7f070001;
+        public static final int control_screen=0x7f070002;
+        public static final int element_picker=0x7f070003;
     }
     public static final class string {
         public static final int Find=0x7f05000a;
@@ -115,7 +117,9 @@ public final class R {
         public static final int startLog=0x7f050004;
         public static final int stopLog=0x7f050005;
         public static final int test=0x7f050003;
+        public static final int title_activity_control_editor=0x7f05000c;
         public static final int title_activity_control_screen=0x7f05000b;
+        public static final int title_activity_element_picker=0x7f05000d;
     }
     public static final class style {
         /** 

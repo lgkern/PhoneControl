@@ -1,8 +1,6 @@
 package com.phonecontrol;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +8,13 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Switch;
-import android.widget.TextView;
+//import android.widget.TextView;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -125,8 +122,10 @@ public class Configuration extends Activity implements SensorEventListener {
 		try 
 		{
 		    FileOutputStream fos = openFileOutput("ControlDB", Context.MODE_PRIVATE);
-		    fos.write("teste;0-8;5\n".getBytes());
-		    fos.write("teste2;1-4;3\n".getBytes());
+		    fos.write("Such Movements;0-8;5\n".getBytes());
+		    fos.write("Very Test;1-2-4-0;3\n".getBytes());
+		    fos.write("Much lines;2;3\n".getBytes());
+		    fos.write("wow;1-4-8-7-5;3\n".getBytes());
 		    fos.close();		    
 		}
 		catch (Exception e) 
@@ -141,7 +140,7 @@ public class Configuration extends Activity implements SensorEventListener {
 		    fos.write("Up\n".getBytes());
 		    fos.write("Door Knob\n".getBytes());
 		    fos.write("Wave\n".getBytes());
-		    fos.write("????\n".getBytes());
+		    fos.write("Waiter\n".getBytes());
 		    fos.write("Tilt\n".getBytes());
 		    fos.write("To the Side\n".getBytes());
 		    fos.close();		    
@@ -155,15 +154,15 @@ public class Configuration extends Activity implements SensorEventListener {
 		try 
 		{
 		    FileOutputStream fos = openFileOutput("ElementDB", Context.MODE_PRIVATE);
-		    fos.write("0\n".getBytes());
-		    fos.write("1\n".getBytes());
-		    fos.write("2\n".getBytes());
-		    fos.write("3\n".getBytes());
-		    fos.write("4\n".getBytes());
-		    fos.write("5\n".getBytes());
-		    fos.write("6\n".getBytes());
-		    fos.write("7\n".getBytes());
-		    fos.write("8\n".getBytes());		    
+		    fos.write("Hue\n".getBytes());
+		    fos.write("HueHue\n".getBytes());
+		    fos.write("HueHueHue\n".getBytes());
+		    fos.write("HueHueHueHue\n".getBytes());
+		    fos.write("HueHueHueHueHue\n".getBytes());
+		    fos.write("HueHueHueHueHueHue\n".getBytes());
+		    fos.write("HueHueHueHueHueHueHue\n".getBytes());
+		    fos.write("HueHueHueHueHueHueHueHue\n".getBytes());
+		    fos.write("HueHueHueHueHueHueHueHueHue\n".getBytes());		    
 		    
 		    fos.close();		    
 		}

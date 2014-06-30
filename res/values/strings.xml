@@ -13,5 +13,7 @@
     <string name="List">List paired Devices</string>
     <string name="Find">Search new Devices / Cancel</string>
     <string name="title_activity_control_screen">ControlScreen</string>
+    <string name="title_activity_control_editor">Edit Control</string>
+    <string name="title_activity_element_picker">Element Picker</string>
 
 </resources>

@@ -6,18 +6,19 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.view.View;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class ControlScreen extends Activity {
-	
+public class ControlEditor extends Activity {
 	private ListView myListView;
 	private ArrayAdapter<String> ControlArrayAdapter;
 	private List<String> rawDB;
@@ -31,46 +32,99 @@ public class ControlScreen extends Activity {
 	final private String controlDB = "ControlDB";
 	final private String movementDB = "MovementDB";
 	final private String elementDB = "ElementDB";
+	
+	private int id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.control);
-		controls = new ArrayList<Control>();
+		Intent intent = getIntent();
+		id = intent.getIntExtra("id", 0);
+		setContentView(R.layout.edit);
+	      Toast.makeText(getApplicationContext(),""+id,
+	    		  Toast.LENGTH_SHORT).show();
+	      
+	    controls = new ArrayList<Control>();
 		movementNames = new ArrayList<String>();
 		elementNames = new ArrayList<String>();
 		
-		 myListView = (ListView)findViewById(R.id.listView1);		 
+		myListView = (ListView)findViewById(R.id.listView1);		 
 			
 	      // create the arrayAdapter that contains the BTDevices, and set it to the ListView
-		 ControlArrayAdapter = new ArrayAdapter<String>(this, R.layout.listviewlayout);
-	      myListView.setAdapter(ControlArrayAdapter);
+		ControlArrayAdapter = new ArrayAdapter<String>(this, R.layout.listviewlayout);
+	    myListView.setAdapter(ControlArrayAdapter);
 	      
-	     loadDBs();
-	     
-	     populateList();
-	     
+	    
+	    loadDBs();     	
+	    
+	    TextView MainName = (TextView)findViewById(R.id.textView1);
+	    MainName.setText(controls.get(id).name());
+	    
+	    populateList();    
+
 	     myListView.setOnItemClickListener(new OnItemClickListener() {
 	    	  @Override
 	    	  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	    		  Intent t = new Intent(ControlScreen.this,ElementPicker.class);
-	    		  t.putExtra("id",position);
-	        	 startActivity(t);
+	    		  if(position == 1) // Element
+	    		  {
+	    			  Intent t = new Intent(ControlEditor.this,ElementPicker.class);	    			  
+		    		  t.putExtra("Elements",GenerateElement());
+		        	 startActivity(t);  
+	    		  }
+	    		  else if(position == 0) //Movement
+	    		  {
+	    			  
+	    		  }
+	    		  
 	    	  }
+
+
 	    	}); 
 	}
-
-
-	private void populateList() 
+	
+	private int GenerateElement() 
 	{
-		for(int i = 0; i < controls.size(); i++)
-		{			
-			ControlArrayAdapter.add(GenerateAdapterString(i));
-		}		
+		int result = 0;
+		for(int element : controls.get(id).elements())
+		{
+			result += Math.pow(10, element);
+		}
+		return result;
+	}
+	
+	private void loadDBs() {
+		loadControlDB();
+		loadMovementDB();
+		loadElementDB();
+		
+	}
+	
+	private void populateList() 
+	{	
+		ControlArrayAdapter.add(GenerateMoveString());
+		ControlArrayAdapter.add(GenerateElementString());		
+	}
+	
+	private String GenerateMoveString() {
+		String result ="Trigger Movement\n";
+		result+= movementNames.get(controls.get(id).Move());
+		
+		return result;
 	}
 
+	private String GenerateElementString() {
+		String result ="Elements Affected\n";
+		for(int element : controls.get(id).elements())
+		{
+			result+= elementNames.get(element);
+			result+= "\n";
+		}
+		//result+= movementNames.get(controls.get(id).Move());
+		
+		return result;
+	}
 
-	private String GenerateAdapterString(int i) {
+	/*private String GenerateAdapterString(int i) {
 		String result = new String();
 		Control current = controls.get(i);
 		result = current.name() + "\n";
@@ -82,18 +136,8 @@ public class ControlScreen extends Activity {
 		result+="\n";
 		result+= "Movement: ";
 		result+=movementNames.get(current.Move());
-		result+="\n";
 		return result;
-	}
-
-
-	private void loadDBs() {
-		loadControlDB();
-		loadMovementDB();
-		loadElementDB();
-		
-	}
-
+	}*/
 
 	private void loadMovementDB() {
 		
@@ -193,45 +237,11 @@ public class ControlScreen extends Activity {
 		return tempElements;
 	}
 
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.control_screen, menu);
+		getMenuInflater().inflate(R.menu.control_editor, menu);
 		return true;
 	}
-	
-	/*private void rwTest()
-	{	                   
-		try 
-		{
-		    FileOutputStream fos = openFileOutput("PhoneControlDB", Context.MODE_APPEND);
-		    fos.write("teste".getBytes());
-		    fos.close();		    
-		}
-		catch (Exception e) 
-		{
-		    e.printStackTrace();
-		}
-		
-		try 
-		{
-		    BufferedReader inputReader = new BufferedReader(new InputStreamReader(
-		            openFileInput("DayTwentyTwoFile")));
-		    String inputString;
-		    StringBuffer stringBuffer = new StringBuffer();                
-		    while ((inputString = inputReader.readLine()) != null) 
-		    {
-		        stringBuffer.append(inputString + "\n");
-		    }
-		    //
-		    
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-
-	}*/
 
 }

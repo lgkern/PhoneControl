@@ -33,6 +33,14 @@
             android:name="com.phonecontrol.ControlScreen"
             android:label="@string/title_activity_control_screen" >
         </activity>
+        <activity
+            android:name="com.phonecontrol.ControlEditor"
+            android:label="@string/title_activity_control_editor" >
+        </activity>
+        <activity
+            android:name="com.phonecontrol.ElementPicker"
+            android:label="@string/title_activity_element_picker" >
+        </activity>
     </application>
 
 </manifest>
