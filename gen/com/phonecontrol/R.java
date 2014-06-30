@@ -33,7 +33,7 @@ public final class R {
         public static final int Button02=0x7f080013;
         public static final int Button03=0x7f080012;
         public static final int TextView01=0x7f08000b;
-        public static final int action_settings=0x7f080017;
+        public static final int action_settings=0x7f080018;
         public static final int button1=0x7f080009;
         public static final int button2=0x7f08000a;
         public static final int imageView1=0x7f080016;
@@ -41,6 +41,7 @@ public final class R {
         public static final int listView1=0x7f080011;
         public static final int paired=0x7f08000f;
         public static final int search=0x7f080010;
+        public static final int switch1=0x7f080017;
         public static final int text=0x7f08000c;
         public static final int textView1=0x7f080000;
         public static final int textView10=0x7f080008;
