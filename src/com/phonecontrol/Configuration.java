@@ -49,14 +49,17 @@ public class Configuration extends Activity implements SensorEventListener {
 	private float[] ac_lastState;
 	private float[] gy_lastState;
 	
+	private float[] gravityStart;
+	private float[] gravityEnd;
+	
 	private static final int SHAKE_THRESHOLD = 600;
 	
 	private List<Movement> movements;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-    //	Intent t = new Intent(Configuration.this,BluetoothConfiguration.class);
-    //	startActivity(t);
+   // 	Intent t = new Intent(Configuration.this,BluetoothConfiguration.class);
+   // 	startActivity(t);
     	
     	lastLog = System.currentTimeMillis();
         super.onCreate(savedInstanceState);
@@ -89,8 +92,12 @@ public class Configuration extends Activity implements SensorEventListener {
         
         movements = new ArrayList<Movement>();
         
-        movements.add(new Movement(new float[]{78.0f,103.0f,64.0f},new float[]{11.0f,11.0f,11.0f},new float[]{0.0f, 9.7f, 0.0f},new float[]{0.0f, 9.7f, 0.0f}));
-        movements.add(new Movement(new float[]{505.0f,350.0f,3062.0f},new float[]{34.0f,1232.0f,98.0f},new float[]{0.0f, 0.0f, -9.8f},new float[]{9.8f, 0.0f, 0.0f}));
+        movements.add(new Movement(0, new float[]{78.0f,103.0f,64.0f},new float[]{11.0f,11.0f,11.0f},new float[]{0.0f, 9.7f, 0.0f},new float[]{0.0f, 9.7f, 0.0f}));
+        movements.add(new Movement(1, new float[]{505.0f,350.0f,3062.0f},new float[]{34.0f,1232.0f,98.0f},new float[]{0.0f, 0.0f, -9.8f},new float[]{8.78f, 2.04f, -3.84f}));
+        movements.add(new Movement(2, new float[]{456.0f,212.0f,51.0f},new float[]{37.0f,223.0f,92.0f},new float[]{0.0f, 0.0f, -9.8f},new float[]{1.98f, 7.98f, 3.38f}));
+        movements.add(new Movement(3, new float[]{232.0f,313.0f,87.0f},new float[]{70.0f,137.0f,164.0f},new float[]{0.0f, 0.0f, -9.8f},new float[]{-2.19f, -1.73f, 9.4f}));
+        movements.add(new Movement(4, new float[]{206.0f,165.0f,311.0f},new float[]{8.0f,40.0f,18.0f},new float[]{0.0f, 0.0f, -9.8f},new float[]{1.26f, 7.61f, 6.04f}));
+        movements.add(new Movement(5, new float[]{788.0f,1434.0f,236.0f},new float[]{40.0f,110.0f,63.0f},new float[]{0.0f, 0.0f, -9.8f},new float[]{-5.37f, 8.16f, -0.78f}));
     }
     
     @Override
@@ -98,7 +105,7 @@ public class Configuration extends Activity implements SensorEventListener {
 
     	if(keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
         	long currentClick = System.currentTimeMillis(); 
-    		if(currentClick - lastClick > 1000){    			
+    		if(currentClick - lastClick > 1000){    
 	    		resetAcumulators();
 	            senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 	            senSensorManager.registerListener(this, senGyroscope , SensorManager.SENSOR_DELAY_NORMAL);
@@ -126,27 +133,50 @@ public class Configuration extends Activity implements SensorEventListener {
     public boolean onKeyUp(int keyCode, KeyEvent event){
     	if(keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){    		
             senSensorManager.unregisterListener(this);  
-            TextView acTextX = (TextView)findViewById(R.id.textView1);
+            
+    /*        TextView acTextX = (TextView)findViewById(R.id.textView1);
             TextView acTextY = (TextView)findViewById(R.id.textView3);
             TextView acTextZ = (TextView)findViewById(R.id.textView4);
             TextView gyTextX = (TextView)findViewById(R.id.textView5);
             TextView gyTextY = (TextView)findViewById(R.id.textView6);
             TextView gyTextZ = (TextView)findViewById(R.id.textView7);
             TextView results = (TextView)findViewById(R.id.TextView01);
-            results.setText("Acumulator Results");
+            results.setText("Best Movement: "+bestMovement());
+            
+           // acTextX.setText("Move 0 fielty:" + Float.toString(movements.get(0).CheckFielty(acAccelerometer, acGyroscope, gravityStart, gravityEnd)));
+           // acTextY.setText("Move 1 fielty:" + Float.toString(movements.get(1).CheckFielty(acAccelerometer, acGyroscope, gravityStart, gravityEnd)));
             
             acTextX.setText("Ac x:" + Float.toString(acAccelerometer[0]));
             acTextY.setText("Ac y:" + Float.toString(acAccelerometer[1]));
             acTextZ.setText("Ac z:" + Float.toString(acAccelerometer[2]));
             
+            
             gyTextX.setText("Gy x:" + Float.toString(acGyroscope[0]));
             gyTextY.setText("Gy y:" + Float.toString(acGyroscope[1]));
             gyTextZ.setText("Gy z:" + Float.toString(acGyroscope[2]));
+      */      
+            gravityStart = null;
+            gravityEnd = null;
     		return true;
     	}
     	return false;
     }
-
+	
+	private int	bestMovement()
+	{
+		float bestValue = 100000000.0f;
+		int bestId = -1;
+		for(Movement move : movements)
+		{
+			float currentValue = move.CheckFielty(acAccelerometer, acGyroscope, gravityStart, gravityEnd);
+			if(currentValue < bestValue)
+			{
+				bestValue = currentValue;
+				bestId = move.getId();
+			}
+		}
+		return bestId;
+	}
 
 
     @Override
@@ -165,29 +195,27 @@ public class Configuration extends Activity implements SensorEventListener {
             float y = sensorEvent.values[1];
             float z = sensorEvent.values[2];
             
-            TextView xtext = (TextView)findViewById(R.id.textView1);
+      /*      TextView xtext = (TextView)findViewById(R.id.textView1);
             TextView ytext = (TextView)findViewById(R.id.textView3);
             TextView ztext = (TextView)findViewById(R.id.textView4);
+            */
      
             long curTime = System.currentTimeMillis();
      
             if ((curTime - lastUpdate) > refreshRate) {
                 long diffTime = (curTime - lastUpdate);
-                lastUpdate = curTime;
-     
-                float speed = Math.abs(x + y + z - ac_x - ac_y - ac_z)/ diffTime * 10000;
-     
-                if (speed > SHAKE_THRESHOLD) {
-     
-                }
+                lastUpdate = curTime;     
+
                 ac_x = x;
                 ac_y = y;
                 ac_z = z;
                 
                 updateDistance(0, x, y, z, diffTime);
+    /*            
                 xtext.setText("Ac x:" + Float.toString(x));
                 ytext.setText("Ac y:" + Float.toString(y));
                 ztext.setText("Ac z:" + Float.toString(z));
+       */
             }
         }
         
@@ -195,10 +223,12 @@ public class Configuration extends Activity implements SensorEventListener {
         	 float x = sensorEvent.values[0];
              float y = sensorEvent.values[1];
              float z = sensorEvent.values[2];
-             
+       /*      
              TextView xtext = (TextView)findViewById(R.id.textView5);
              TextView ytext = (TextView)findViewById(R.id.textView6);
              TextView ztext = (TextView)findViewById(R.id.textView7);
+             
+             */
       
              long curTime2 = System.currentTimeMillis();
       
@@ -206,18 +236,16 @@ public class Configuration extends Activity implements SensorEventListener {
                  long diffTime = (curTime2 - lastUpdate2);
                  lastUpdate2 = curTime2;
       
-                 float speed = Math.abs(x + y + z - gy_x - gy_y - gy_z)/ diffTime * 10000;
-      
-                 if (speed > SHAKE_THRESHOLD) {
-      
-                 }
                  gy_x = x;
                  gy_y = y;
                  gy_z = z;
+                 
                  updateDistance(1, x, y, z, diffTime);
+        /*         
                  xtext.setText("Gy x:" + Float.toString(x));
                  ytext.setText("Gy y:" + Float.toString(y));
                  ztext.setText("Gy z:" + Float.toString(z));
+                 */
              }
         	
         }
@@ -226,43 +254,39 @@ public class Configuration extends Activity implements SensorEventListener {
             float y = sensorEvent.values[1];
             float z = sensorEvent.values[2];
             
-            TextView xtext = (TextView)findViewById(R.id.textView8);
+			if(gravityStart == null)
+			{
+				gravityEnd = new float[3];
+				gravityStart = new float[3];
+				gravityStart[0] = x;
+				gravityStart[1] = y;
+				gravityStart[2] = z;				
+			}
+            
+           /* TextView xtext = (TextView)findViewById(R.id.textView8);
             TextView ytext = (TextView)findViewById(R.id.textView9);
             TextView ztext = (TextView)findViewById(R.id.textView10);
-     
+     */
             long curTime = System.currentTimeMillis();
      
             if ((curTime - lastUpdate3) > refreshRate) {
-                long diffTime = (curTime - lastUpdate3);
+            	
+            	gravityEnd[0] = x;
+    			gravityEnd[1] = y;
+    			gravityEnd[2] = z;            	
+
                 lastUpdate3 = curTime;
-     
-                float speed = Math.abs(x + y + z - gr_x - gr_y - gr_z)/ diffTime * 10000;
-     
-                if (speed > SHAKE_THRESHOLD) {
-     
-                }
                   
                 gr_x = x;
                 gr_y = y;
                 gr_z = z;
-                
+            /*    
                 xtext.setText("Gr x:" + Float.toString(x));
                 ytext.setText("Gr y:" + Float.toString(y));
                 ztext.setText("Gr z:" + Float.toString(z));
+                */
             }
         }
-        
-        String data = "";
-        long currTime = System.currentTimeMillis();
-        if((currTime - lastLog) > 100 && logging)
-	    {
-        	lastLog = currTime;
-	        data += "[" + Long.toString(currTime) + "] ";
-	        data += "ac: " + Float.toString(ac_x) + "\t" + Float.toString(ac_y) + "\t" + Float.toString(ac_z) + "\t";
-	        data += "gy: " + Float.toString(gy_x) + "\t" + Float.toString(gy_y) + "\t" + Float.toString(gr_z) + "\t";
-	        data += "gr: " + Float.toString(gr_x) + "\t" + Float.toString(gr_y) + "\t" + Float.toString(gy_z) + "\n";
-	     //   writeToFile(data);
-	    }
     }
     
     
@@ -295,16 +319,7 @@ public class Configuration extends Activity implements SensorEventListener {
     			else 
     				a = 0.0f;
     			}
-       // 	if(storeVariable == 0){ //accelerometer
-        	//	u = ac_LastVelocity[i];
-        	//	s = acAccelerometer[i];
-       // 	}
-        	//else{
-        	//	u = gy_LastVelocity[i];
-        	//	s = acGyroscope[i];
-        //	}
-        //	velocity[i] = u + (a*timeFrame);
-        	positions[i] = a*(float)timeFrame;//s + (velocity[i] * timeFrame);        
+        	positions[i] = a*(float)timeFrame;        
     	}
     	if(storeVariable == 0){
     		for(int i = 0; i < 3; i++){
@@ -318,9 +333,6 @@ public class Configuration extends Activity implements SensorEventListener {
     			acGyroscope[i] = positions[i];
     		}
     	}
-    	
-       // TextView results = (TextView)findViewById(R.id.TextView01);
-       // results.setText(Float.toString(acAccelerometer[0]));
     }
 		
      

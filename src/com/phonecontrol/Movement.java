@@ -1,37 +1,42 @@
 package com.phonecontrol;
 
 public class Movement {
-	public Movement(float[] acAcumulators, float[] gyAcumulators, float[] grStart, float[] grEnd)
+	public Movement(int id, float[] acAcumulators, float[] gyAcumulators, float[] grStart, float[] grEnd)
 	{
+		ID = id;
 		acelerometerData = acAcumulators;
 		gyroscopeData = gyAcumulators;
 		startGravity = grStart;
 		endGravity = grEnd;
 		
 		normalizedGyroscope = normalize(gyroscopeData);
-		normalizedAccelerometer = normalize(gyroscopeData);
+		normalizedAccelerometer = normalize(acelerometerData);
 	}
 	
 	public float CheckFielty(float[] accelerometer, float[] gyroscope, float[] gravityStart, float[] gravityEnd)
 	{
-		if(rawDifference(gravityStart,startGravity) > 2.0f || rawDifference(gravityEnd,endGravity) > 2.0f)
-			return 0.0f;
-		else
+		try{
+			return rawDifference(gravityEnd,endGravity);
+			/*
+			if(rawDifference(gravityEnd,endGravity) > 1.0f) //rawDifference(gravityStart,startGravity) > 2.0f ||
+				return 10000000000.0f;
+			else
+			{
+				float[] normalizedAc = normalize(accelerometer);
+				float[] normalizedGy = normalize(gyroscope);
+				
+				float acumulator = rawDiference(normalizedAc, normalizedAccelerometer);
+				acumulator += rawDiference(normalizedGy, normalizedGyroscope);
+				//= rawDifference(accelerometer,acelerometerData);
+				//acumulator += rawDifference(gyroscope,gyroscopeData);
+				
+				return acumulator;
+			}*/
+		}
+		catch(NullPointerException e)
 		{
-			float[] normalizedAc = normalize(accelerometer);
-			float[] normalizedGy = normalize(gyroscope);
-			
-			float acumulator = rawDiference(normalizedAc, normalizedAccelerometer);
-			acumulator += rawDiference(normalizedGy, normalizedGyroscope);
-			//= rawDifference(accelerometer,acelerometerData);
-			//acumulator += rawDifference(gyroscope,gyroscopeData);
-			
-
-			
-			
-			
-			return acumulator;
-		}			
+			return 10000000000.0f;
+		}
 	}
 
 
@@ -52,19 +57,26 @@ public class Movement {
 		return result;
 	}
 
-	private float rawDifference(float[] inputValue, float[] movementValue) {
+	private float rawDifference(float[] inputValue, float[] movementValue) throws NullPointerException {
 		float acumulator = 0.0f;
 		for(int i = 0; i < 3; i++)
 		{
 			acumulator += (float)Math.abs(inputValue[i]-movementValue[i]);
 		}
-		return acumulator;
+		return acumulator/3;
+	}
+	
+	public int getId()
+	{
+		return ID;
 	}
 
 	private float[] acelerometerData;
 	private float[] gyroscopeData;
 	private float[] startGravity;
 	private float[] endGravity;
+	
+	private int ID;
 	
 	private float[] normalizedAccelerometer;
 	private float[] normalizedGyroscope;

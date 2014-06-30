@@ -21,30 +21,65 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int back_button=0x7f020000;
-        public static final int background=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int phone_control_icon=0x7f020003;
-        public static final int phone_control_logo=0x7f020004;
-        public static final int uooooou=0x7f020005;
+        public static final int amarelo_aceso=0x7f020000;
+        public static final int amarelo_apagado=0x7f020001;
+        public static final int azul_aceso=0x7f020002;
+        public static final int azul_apagado=0x7f020003;
+        public static final int back_button=0x7f020004;
+        public static final int background=0x7f020005;
+        public static final int branco_aceso=0x7f020006;
+        public static final int branco_apagado=0x7f020007;
+        public static final int cordepijama_aceso=0x7f020008;
+        public static final int cordepijama_apagado=0x7f020009;
+        public static final int ic_launcher=0x7f02000a;
+        public static final int laranja_aceso=0x7f02000b;
+        public static final int laranja_apagado=0x7f02000c;
+        public static final int marrom_aceso=0x7f02000d;
+        public static final int marrom_apagado=0x7f02000e;
+        public static final int movement_icon=0x7f02000f;
+        public static final int phone_control_icon=0x7f020010;
+        public static final int phone_control_logo=0x7f020011;
+        public static final int roxo_aceso=0x7f020012;
+        public static final int roxo_apagado=0x7f020013;
+        public static final int uooooou=0x7f020014;
+        public static final int verde_aceso=0x7f020015;
+        public static final int verde_apagado=0x7f020016;
+        public static final int vermelho_aceso=0x7f020017;
+        public static final int vermelho_apagado=0x7f020018;
     }
     public static final class id {
-        public static final int Button01=0x7f080014;
+        public static final int Button01=0x7f08001b;
         public static final int Button02=0x7f080013;
-        public static final int Button03=0x7f080012;
+        public static final int Button03=0x7f080016;
+        public static final int Button04=0x7f080015;
+        public static final int Button05=0x7f080014;
+        public static final int Button06=0x7f080017;
+        public static final int Button07=0x7f080019;
+        public static final int Button08=0x7f080018;
+        public static final int Button09=0x7f08001a;
         public static final int TextView01=0x7f08000b;
-        public static final int action_settings=0x7f080018;
+        public static final int action_settings=0x7f080028;
         public static final int button1=0x7f080009;
+        public static final int button10=0x7f080027;
         public static final int button2=0x7f08000a;
-        public static final int imageView1=0x7f080016;
-        public static final int imageView2=0x7f080015;
+        public static final int button3=0x7f080020;
+        public static final int button4=0x7f080021;
+        public static final int button5=0x7f080022;
+        public static final int button6=0x7f080023;
+        public static final int button7=0x7f080024;
+        public static final int button8=0x7f080025;
+        public static final int button9=0x7f080026;
+        public static final int imageView1=0x7f08001d;
+        public static final int imageView2=0x7f08001c;
         public static final int listView1=0x7f080011;
         public static final int paired=0x7f08000f;
+        public static final int scrollView1=0x7f08001f;
         public static final int search=0x7f080010;
-        public static final int switch1=0x7f080017;
+        public static final int switch1=0x7f08001e;
         public static final int text=0x7f08000c;
         public static final int textView1=0x7f080000;
         public static final int textView10=0x7f080008;
+        public static final int textView2=0x7f080012;
         public static final int textView3=0x7f080001;
         public static final int textView4=0x7f080002;
         public static final int textView5=0x7f080003;
@@ -58,7 +93,11 @@ public final class R {
     public static final class layout {
         public static final int activity_configuration=0x7f030000;
         public static final int bluetooth=0x7f030001;
-        public static final int fragment_main=0x7f030002;
+        public static final int controls=0x7f030002;
+        public static final int edit=0x7f030003;
+        public static final int elements_selection=0x7f030004;
+        public static final int fragment_main=0x7f030005;
+        public static final int movements_selection=0x7f030006;
     }
     public static final class menu {
         public static final int configuration=0x7f070000;

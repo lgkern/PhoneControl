@@ -1,0 +1,145 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/uooooou"
+    android:gravity="top"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:textAlignment="center"
+    tools:context="com.example.phonecontrol.MainActivity$PlaceholderFragment" >
+
+    <Button
+        android:id="@+id/Button02"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Button05"
+        android:layout_alignBottom="@+id/Button05"
+        android:layout_marginRight="23dp"
+        android:layout_toLeftOf="@+id/Button05"
+        android:background="@drawable/branco_aceso"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Button05"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="155dp"
+        android:background="@drawable/azul_aceso"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Button04"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Button03"
+        android:layout_alignBottom="@+id/Button03"
+        android:layout_alignLeft="@+id/Button05"
+        android:background="@drawable/verde_aceso"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Button06"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Button04"
+        android:layout_alignBottom="@+id/Button04"
+        android:layout_alignLeft="@+id/Button02"
+        android:background="@drawable/vermelho_aceso"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Button08"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Button07"
+        android:layout_alignBottom="@+id/Button07"
+        android:layout_alignLeft="@+id/Button04"
+        android:background="@drawable/laranja_aceso"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Button09"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Button08"
+        android:layout_alignBottom="@+id/Button08"
+        android:layout_alignLeft="@+id/Button06"
+        android:background="@drawable/amarelo_aceso"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Button01"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="54dp"
+        android:background="@drawable/back_button" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Button08"
+        android:layout_marginBottom="35dp"
+        android:layout_toLeftOf="@+id/Button07"
+        android:text="Elements"
+        android:textColor="#FFFFFF"
+        android:textSize="27sp"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Button01"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Button05"
+        android:layout_alignBottom="@+id/Button05"
+        android:layout_marginLeft="28dp"
+        android:layout_toRightOf="@+id/Button05"
+        android:background="@drawable/marrom_aceso"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Button07"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Button03"
+        android:layout_alignLeft="@+id/Button01"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/roxo_aceso"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/Button03"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Button01"
+        android:layout_marginBottom="21dp"
+        android:layout_toRightOf="@+id/textView1"
+        android:background="@drawable/cordepijama_aceso"
+        android:text="Button"
+        tools:ignore="HardcodedText" />
+
+</RelativeLayout>
