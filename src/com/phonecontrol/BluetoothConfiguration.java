@@ -113,7 +113,7 @@ public class BluetoothConfiguration extends Activity {
    
    @Override
    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	   // TODO Auto-generated method stub
+
 	   if(requestCode == REQUEST_ENABLE_BT){
 		   if(myBluetoothAdapter.isEnabled()) {
 			   text.setText("Status: Enabled");

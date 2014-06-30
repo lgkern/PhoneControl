@@ -1,5 +1,6 @@
 package com.phonecontrol;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -25,20 +27,14 @@ public class Configuration extends Activity implements SensorEventListener {
 	private SensorManager senSensorManager;
 	private Sensor senAccelerometer;
 	private Sensor senGyroscope;
-	private Sensor senGravity;
-
-	private boolean logging = false;
+	private Sensor senGravity;	
 	
 	private long lastClick = 0;
 		
 	private long refreshRate = 100;
 	private long lastUpdate = 0;
 	private long lastUpdate2 = 0;
-	private long lastUpdate3 = 0;
-	private long lastLog = 0;
-	private float ac_x, ac_y, ac_z;
-	private float gy_x, gy_y, gy_z;
-	private float gr_x, gr_y, gr_z;
+	private long lastUpdate3 = 0;	
 	
 	private float[] acAccelerometer;
 	private float[] acGyroscope;
@@ -52,18 +48,15 @@ public class Configuration extends Activity implements SensorEventListener {
 	private float[] gravityStart;
 	private float[] gravityEnd;
 	
-	private static final int SHAKE_THRESHOLD = 600;
-	
 	private List<Movement> movements;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
    // 	Intent t = new Intent(Configuration.this,BluetoothConfiguration.class);
-   // 	startActivity(t);
+   // 	startActivity(t);    	
     	
-    	lastLog = System.currentTimeMillis();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_configuration);
+        setContentView(R.layout.fragment_main);
         
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
@@ -73,22 +66,49 @@ public class Configuration extends Activity implements SensorEventListener {
         //senSensorManager.registerListener(this, senGyroscope , SensorManager.SENSOR_DELAY_NORMAL);
         //senSensorManager.registerListener(this, senGravity , SensorManager.SENSOR_DELAY_NORMAL);
         
-        Button btnStart = (Button) findViewById(R.id.button1);
-        Button btnStop = (Button) findViewById(R.id.button2);
+        Button btnStatus = (Button) findViewById(R.id.button1);
+        Button btnControls = (Button) findViewById(R.id.Button01);
+        Button btnAbout = (Button) findViewById(R.id.Button02);
+        Button btnHelp = (Button) findViewById(R.id.Button03);
         
-        btnStart.setOnClickListener(new OnClickListener(){
+        final Switch switch1 = (Switch) findViewById(R.id.switch1);
+        
+        btnStatus.setOnClickListener(new OnClickListener(){
         	@Override
         	public void onClick(View arg0){
-        		logging = true;
+        		ResetDBs();
         	}
         });
         
-        btnStop.setOnClickListener(new OnClickListener(){
+        btnControls.setOnClickListener(new OnClickListener(){
         	@Override
         	public void onClick(View arg0){
-        		logging = false;
+        		if(switch1.isChecked())
+        			switch1.toggle();
+        		
+        		Intent t = new Intent(Configuration.this,ControlScreen.class);
+        		startActivity(t);
         	}
         });
+        	
+       	btnAbout.setOnClickListener(new OnClickListener(){
+        	@Override
+        	public void onClick(View arg0){
+        		if(switch1.isChecked())
+        			switch1.toggle();
+        	
+        	}
+        });
+        	
+        btnHelp.setOnClickListener(new OnClickListener(){
+        	@Override
+        	public void onClick(View arg0){
+        		if(switch1.isChecked())
+        			switch1.toggle();
+        	
+        	}
+        });
+        
         
         movements = new ArrayList<Movement>();
         
@@ -100,6 +120,65 @@ public class Configuration extends Activity implements SensorEventListener {
         movements.add(new Movement(5, new float[]{788.0f,1434.0f,236.0f},new float[]{40.0f,110.0f,63.0f},new float[]{0.0f, 0.0f, -9.8f},new float[]{-5.37f, 8.16f, -0.78f}));
     }
     
+	private void ResetDBs() {
+		boolean error = false;
+		try 
+		{
+		    FileOutputStream fos = openFileOutput("ControlDB", Context.MODE_PRIVATE);
+		    fos.write("teste;0-8;5\n".getBytes());
+		    fos.write("teste2;1-4;3\n".getBytes());
+		    fos.close();		    
+		}
+		catch (Exception e) 
+		{
+			error = true;
+		    e.printStackTrace();
+		}
+		
+		try  
+		{
+		    FileOutputStream fos = openFileOutput("MovementDB", Context.MODE_PRIVATE);
+		    fos.write("Up\n".getBytes());
+		    fos.write("Door Knob\n".getBytes());
+		    fos.write("Wave\n".getBytes());
+		    fos.write("????\n".getBytes());
+		    fos.write("Tilt\n".getBytes());
+		    fos.write("To the Side\n".getBytes());
+		    fos.close();		    
+		}
+		catch (Exception e) 
+		{
+			error = true;
+		    e.printStackTrace();
+		}
+		
+		try 
+		{
+		    FileOutputStream fos = openFileOutput("ElementDB", Context.MODE_PRIVATE);
+		    fos.write("0\n".getBytes());
+		    fos.write("1\n".getBytes());
+		    fos.write("2\n".getBytes());
+		    fos.write("3\n".getBytes());
+		    fos.write("4\n".getBytes());
+		    fos.write("5\n".getBytes());
+		    fos.write("6\n".getBytes());
+		    fos.write("7\n".getBytes());
+		    fos.write("8\n".getBytes());		    
+		    
+		    fos.close();		    
+		}
+		catch (Exception e) 
+		{
+			error = true;
+		    e.printStackTrace();
+		}
+		
+		Button btnStatus = (Button) findViewById(R.id.button1);
+		if(!error) btnStatus.setText("Database Reseted");
+		else btnStatus.setText("Deu merda");
+			
+	}
+    
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
 
@@ -110,10 +189,10 @@ public class Configuration extends Activity implements SensorEventListener {
 	            senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 	            senSensorManager.registerListener(this, senGyroscope , SensorManager.SENSOR_DELAY_NORMAL);
 	            senSensorManager.registerListener(this, senGravity , SensorManager.SENSOR_DELAY_NORMAL);
-	            TextView results = (TextView)findViewById(R.id.TextView01);
+	            //TextView results = (TextView)findViewById(R.id.TextView01);
 	            ac_lastState = new float[3];
 	            gy_lastState = new float[3];
-	            results.setText("Live logging");
+	          //  results.setText("Live logging");
     		}
     		lastClick = currentClick;
     		return true;
@@ -206,9 +285,6 @@ public class Configuration extends Activity implements SensorEventListener {
                 long diffTime = (curTime - lastUpdate);
                 lastUpdate = curTime;     
 
-                ac_x = x;
-                ac_y = y;
-                ac_z = z;
                 
                 updateDistance(0, x, y, z, diffTime);
     /*            
@@ -235,10 +311,6 @@ public class Configuration extends Activity implements SensorEventListener {
              if ((curTime2 - lastUpdate2) > refreshRate) {
                  long diffTime = (curTime2 - lastUpdate2);
                  lastUpdate2 = curTime2;
-      
-                 gy_x = x;
-                 gy_y = y;
-                 gy_z = z;
                  
                  updateDistance(1, x, y, z, diffTime);
         /*         
@@ -276,10 +348,7 @@ public class Configuration extends Activity implements SensorEventListener {
     			gravityEnd[2] = z;            	
 
                 lastUpdate3 = curTime;
-                  
-                gr_x = x;
-                gr_y = y;
-                gr_z = z;
+
             /*    
                 xtext.setText("Gr x:" + Float.toString(x));
                 ytext.setText("Gr y:" + Float.toString(y));

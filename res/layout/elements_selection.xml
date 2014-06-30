@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:textAlignment="center"
-    tools:context="com.example.phonecontrol.MainActivity$PlaceholderFragment" >
+    tools:context=".Configuration" >
 
     <Button
         android:id="@+id/Button02"

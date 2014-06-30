@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:textAlignment="center"
-    tools:context="com.example.phonecontrol.MainActivity$PlaceholderFragment" >
+    tools:context=".Configuration" >
 
 
 
@@ -18,11 +18,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/Button02"
+        android:gravity="left|center_vertical"
         android:layout_below="@+id/Button02"
         android:layout_marginTop="30dp"
         android:background="@drawable/uooooou"
         android:text="HELP           "
-        android:textColor="#535354"
+        android:textColor="#BFBFBF"
         android:textSize="27sp"
         android:typeface="sans" />
 
@@ -31,11 +32,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/Button01"
+        android:gravity="left|center_vertical"
         android:layout_below="@+id/Button01"
         android:layout_marginTop="27dp"
         android:background="@drawable/uooooou"
         android:text="ABOUT        "
-        android:textColor="#535354"
+        android:textColor="#BFBFBF"
         android:textSize="27sp"
         android:typeface="sans" />
 
@@ -44,25 +46,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button1"
+        android:gravity="left|center_vertical"
         android:layout_below="@+id/button1"
         android:layout_marginTop="26dp"
         android:background="@drawable/uooooou"
         android:text="CONTROLS"
-        android:textColor="#535354"
-        android:textSize="27sp"
-        android:typeface="sans" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
-        android:layout_marginRight="38dp"
-        android:layout_marginTop="34dp"
-        android:layout_toLeftOf="@+id/imageView1"
-        android:background="@drawable/uooooou"
-        android:text="STATUS      "
-        android:textColor="#535354"
+        android:textColor="#BFBFBF"
         android:textSize="27sp"
         android:typeface="sans" />
 
@@ -76,11 +65,25 @@
         android:scaleType="matrix"
         android:src="@drawable/phone_control_logo" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageView2"
+        android:gravity="left|center_vertical"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/uooooou"
+        android:text="STATUS      "
+        android:textColor="#BFBFBF"
+        android:textSize="27sp"
+        android:typeface="sans" />
+
     <Switch
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_toRightOf="@+id/button1" />
+        android:layout_above="@+id/Button01"
+        android:layout_toRightOf="@+id/imageView2" />
 
 </RelativeLayout>
