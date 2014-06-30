@@ -41,6 +41,10 @@
             android:name="com.phonecontrol.ElementPicker"
             android:label="@string/title_activity_element_picker" >
         </activity>
+        <activity
+            android:name="com.phonecontrol.MovementRecognition"
+            android:label="@string/title_activity_movement_recognition" >
+        </activity>
     </application>
 
 </manifest>

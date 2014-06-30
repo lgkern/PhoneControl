@@ -72,9 +72,9 @@ public class ControlEditor extends Activity {
 	    		  }
 	    		  else if(position == 0) //Movement
 	    		  {//TODO change the intent
-	    			  Intent t = new Intent(ControlEditor.this,ElementPicker.class);	    			  
-			    	  t.putExtra("Movement",GenerateMovement());
-			    	  startActivity(t);	    			  
+	    			//  Intent t = new Intent(ControlEditor.this,ElementPicker.class);	    			  
+			    	//  t.putExtra("Movement",GenerateMovement());
+			    	//  startActivity(t);	    			  
 	    		  }
 	    		  
 	    	  }
@@ -97,12 +97,6 @@ public class ControlEditor extends Activity {
 			}
 		return result;
 	}
-	
-	private String GenerateMovement() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 	private void loadDBs() {
 		loadControlDB();

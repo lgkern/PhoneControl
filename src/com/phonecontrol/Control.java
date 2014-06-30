@@ -6,11 +6,16 @@ public class Control
 	{
 		this.Index = index;
 		this.Name = name;
-		this.Elements = new int[elements.length];
-		for(int i = 0; i<elements.length; i++)
+		if(elements != null)
 		{
-			this.Elements[i] = elements[i];
+			this.Elements = new int[elements.length];
+			for(int i = 0; i<elements.length; i++)
+			{
+				this.Elements[i] = elements[i];
+			}
 		}
+		else
+			this.Elements = null;
 		this.Move = move;
 	}
 	
@@ -38,6 +43,43 @@ public class Control
 	public int Move()
 	{
 		return Move;
+	}
+	
+	public void updateElements(int[] elementMap)
+	{
+		
+		int ac = 0;
+		for(int i = 0; i < 9; i++)
+		{
+			ac+=elementMap[i];			
+		}
+		
+		int[] newElements = new int[ac];
+		int count = 0;
+		for(int i = 0; i < 9; i++)
+		{
+			if(elementMap[i] == 1)
+			{
+				newElements[count] = i;
+				count++;
+			}
+		}
+		
+		this.Elements = newElements;
+	}
+	
+	public String getDBFormat()
+	{
+		String result = "";
+		result+=this.Name;
+		result+=";";
+		for(int element : this.Elements)
+		{
+			result+=element+"-";
+		}
+		result+=";";
+		result+=this.Move+"\n";
+		return result;
 	}
 
 }

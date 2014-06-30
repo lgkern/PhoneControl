@@ -79,11 +79,12 @@
         android:textSize="27sp"
         android:typeface="sans" />
 
-    <Switch
-        android:id="@+id/switch1"
+    <Button
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Button009"
-        android:layout_toRightOf="@+id/imageView2" />
+        android:layout_below="@+id/Button009"
+        android:layout_toRightOf="@+id/imageView2"
+        android:text="Start" />
 
 </RelativeLayout>

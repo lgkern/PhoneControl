@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:textAlignment="center"
-    tools:context=".ElementPicker" >
+    tools:context=".MovementRecognition" >
 
     <Button
         android:id="@+id/Button007"
@@ -107,36 +107,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/Button009"
+        android:layout_alignLeft="@+id/Button003"
         android:layout_marginBottom="21dp"
-        android:layout_toRightOf="@+id/textView1"
         android:background="@drawable/f1"
         tools:ignore="HardcodedText" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/Button002"
-        android:layout_marginBottom="35dp"
-        android:layout_toLeftOf="@+id/Button003"
-        android:text="Elements"
-        android:textColor="#FFFFFF"
-        android:textSize="27sp"
-        tools:ignore="HardcodedText" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true" />
-
-    <Button
-        android:id="@+id/Button01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_toLeftOf="@+id/textView1" />
 
 </RelativeLayout>

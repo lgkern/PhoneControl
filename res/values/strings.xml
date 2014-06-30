@@ -15,5 +15,6 @@
     <string name="title_activity_control_screen">ControlScreen</string>
     <string name="title_activity_control_editor">Edit Control</string>
     <string name="title_activity_element_picker">Element Picker</string>
+    <string name="title_activity_movement_recognition">Movement Recognition</string>
 
 </resources>
